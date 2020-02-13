@@ -57,7 +57,7 @@
 
     [[FIRAuth auth] createUserWithEmail:email
                                password:password
-                             completion:^(FIRAuthDataResult *result, NSError *error) {
+                             completion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
@@ -89,13 +89,13 @@
 
     [[FIRAuth auth] signInWithEmail:email
                            password:password
-                         completion:^(FIRAuthDataResult *result, NSError *error) {
+                         completion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
 
 - (void)signInAnonymously:(CDVInvokedUrlCommand *)command {
-    [[FIRAuth auth] signInAnonymouslyWithCompletion:^(FIRAuthDataResult *result, NSError *error) {
+    [[FIRAuth auth] signInAnonymouslyWithCompletion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
@@ -107,7 +107,7 @@
     FIRAuthCredential *credential = [FIRGoogleAuthProvider credentialWithIDToken:idToken
                                                                      accessToken:accessToken];
     [[FIRAuth auth] signInWithCredential:credential
-                              completion:^(FIRAuthDataResult *result, NSError *error) {
+                              completion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
@@ -117,7 +117,7 @@
 
     FIRAuthCredential *credential = [FIRFacebookAuthProvider credentialWithAccessToken:accessToken];
     [[FIRAuth auth] signInWithCredential:credential
-                              completion:^(FIRAuthDataResult *result, NSError *error) {
+                              completion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
@@ -129,7 +129,7 @@
     FIRAuthCredential *credential = [FIRTwitterAuthProvider credentialWithToken:token
                                                                          secret:secret];
     [[FIRAuth auth] signInWithCredential:credential
-                              completion:^(FIRAuthDataResult *result, NSError *error) {
+                              completion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
@@ -143,7 +143,7 @@
                         verificationCode:smsCode];
 
     [[FIRAuth auth] signInWithCredential:credential
-                              completion:^(FIRAuthDataResult *result, NSError *error) {
+                              completion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
@@ -168,7 +168,7 @@
     NSString* idToken = [command.arguments objectAtIndex:0];
 
     [[FIRAuth auth] signInWithCustomToken:idToken
-                         completion:^(FIRAuthDataResult *result, NSError *error) {
+                         completion:^(FIRUser *user, NSError *error) {
         [self respondWith:error callbackId:command.callbackId];
     }];
 }
